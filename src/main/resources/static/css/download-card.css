@@ -1,0 +1,196 @@
+/* download-card.css — download-card 컴포넌트 스타일 */
+.dl-card {
+  background: var(--ia-surface);
+  border: 0;
+  border-radius: 0 0 8px 8px;
+  padding: 34px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 310px;
+  position: relative;
+}
+
+.dl-card__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.dl-card__icon-frame {
+  width: 68px;
+  height: 68px;
+  border: 1px solid var(--ia-border);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--ia-surface);
+  flex-shrink: 0;
+}
+
+.dl-card__icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.dl-card__name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin: 0;
+  color: var(--ia-text);
+}
+
+.dl-card__desc {
+  font-size: 14px;
+  color: var(--ia-muted);
+  margin: 7px 0 0;
+  line-height: 1.5;
+}
+
+.dl-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dl-card__meta span {
+  border: 1px solid var(--ia-field);
+  border-radius: 8px;
+  color: var(--ia-muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 12px;
+}
+
+/* 옵션 버튼 영역 — 카드 높이가 달라도 하단 정렬 */
+.dl-card__options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.dl-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px 16px;
+  border: 1px solid var(--ia-border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--ia-text);
+  background: var(--ia-surface);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.dl-btn:hover {
+  background: #f7f7f7;
+  border-color: #c7c7c7;
+}
+
+.dl-btn:focus-visible,
+.dl-cmd__copy:focus-visible {
+  outline: 2px solid var(--ia-link);
+  outline-offset: 2px;
+}
+
+.dl-btn__label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dl-btn__sub {
+  font-size: 12px;
+  color: var(--ia-muted);
+}
+
+.dl-btn--primary {
+  align-items: center;
+  border-color: var(--ia-link);
+  background: var(--ia-link);
+  color: #fff;
+  justify-content: center;
+  min-height: 44px;
+  text-align: center;
+}
+
+.dl-btn--primary:hover {
+  background: var(--ia-link-hover);
+  border-color: var(--ia-link-hover);
+}
+
+.dl-btn--primary .dl-btn__sub {
+  display: none;
+}
+
+/* Docker 등 커맨드 복사 블록 */
+.dl-cmd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ia-field);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.dl-cmd__code {
+  flex: 1;
+  min-width: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--ia-text);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.dl-cmd__copy {
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  background: var(--ia-link);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: opacity 0.15s;
+}
+
+.dl-cmd__copy:hover {
+  background: var(--ia-link-hover);
+  opacity: 1;
+}
+
+@media (max-width: 520px) {
+  .dl-card {
+    padding: 22px;
+    border-radius: 8px;
+    min-height: 320px;
+  }
+
+  .dl-card__head {
+    align-items: flex-start;
+  }
+
+  .dl-card__icon-frame {
+    width: 58px;
+    height: 58px;
+    border-radius: 8px;
+  }
+
+  .dl-card__icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .dl-card__name {
+    font-size: 22px;
+  }
+
+  .dl-cmd {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

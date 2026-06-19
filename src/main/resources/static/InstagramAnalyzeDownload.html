@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram Analyze · 다운로드</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 컴포넌트별로 분리한 스타일 (상대경로 — IDE 내장서버/Spring 양쪽 호환) -->
+    <link rel="stylesheet" href="css/base.css?v=20260608b" />
+    <link rel="stylesheet" href="css/header.css?v=20260608b" />
+    <link rel="stylesheet" href="css/download-card.css?v=20260608b" />
+  </head>
+  <body>
+    <div id="app">
+      <main class="ia-container">
+        <page-header></page-header>
+
+        <section class="download-shell" aria-label="운영체제별 다운로드">
+          <div class="os-tabs" role="tablist" aria-label="운영체제 선택">
+            <button
+              v-for="item in downloads"
+              :key="item.id"
+              class="os-tab"
+              :class="{ 'os-tab--active': activeDownloadId === item.id }"
+              type="button"
+              role="tab"
+              :aria-selected="activeDownloadId === item.id"
+              :aria-controls="`download-panel-${item.id}`"
+              @click="selectDownload(item.id)"
+            >
+              <img class="os-tab__icon" :src="item.icon" :alt="`${item.name} 아이콘`" />
+              <span class="os-tab__label">{{ item.tabLabel }}</span>
+            </button>
+          </div>
+
+          <download-card
+            v-if="selectedDownload"
+            :id="`download-panel-${selectedDownload.id}`"
+            :item="selectedDownload"
+          ></download-card>
+        </section>
+
+        <footer class="ia-footer">
+          <p>모든 분석은 사용자 기기에서 처리되며, 데이터는 외부로 전송되지 않습니다.</p>
+          <p>© 2026 Instagram Analyze</p>
+        </footer>
+      </main>
+    </div>
+
+    <!-- Vue 3 (CDN) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <!-- 컴포넌트별로 분리한 스크립트 (순서: 데이터 → 컴포넌트 → 앱) -->
+    <script src="js/data.js?v=20260608b"></script>
+    <script src="js/components/page-header.js?v=20260608b"></script>
+    <script src="js/components/download-card.js?v=20260608b"></script>
+    <script src="js/app.js?v=20260608b"></script>
+  </body>
+</html>

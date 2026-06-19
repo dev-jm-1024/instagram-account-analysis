@@ -1,0 +1,148 @@
+/* base.css — Instagram-like flat tokens + page layout */
+:root {
+  --ia-bg: #fafafa;
+  --ia-surface: #ffffff;
+  --ia-border: #dbdbdb;
+  --ia-field: #efefef;
+  --ia-text: #262626;
+  --ia-muted: #8e8e8e;
+  --ia-link: #0095f6;
+  --ia-link-hover: #1877f2;
+  --ia-soft-blue: #e7f3ff;
+  --ia-shadow: 0 8px 24px rgba(38, 38, 38, 0.06);
+  --ia-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--ia-bg);
+  color: var(--ia-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.ia-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 72px;
+}
+
+.download-shell {
+  background: var(--ia-surface);
+  border: 1px solid var(--ia-border);
+  border-radius: 8px;
+  box-shadow: var(--ia-shadow);
+  padding: 0;
+}
+
+.os-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  background: var(--ia-surface);
+  border-bottom: 1px solid var(--ia-border);
+  border-radius: 8px 8px 0 0;
+  padding: 0;
+}
+
+.os-tab {
+  min-width: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ia-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  position: relative;
+  transition: background 0.15s, color 0.15s;
+}
+
+.os-tab:hover {
+  color: var(--ia-text);
+}
+
+.os-tab:focus-visible {
+  outline: 2px solid var(--ia-link);
+  outline-offset: -2px;
+}
+
+.os-tab--active {
+  color: var(--ia-text);
+}
+
+.os-tab--active::after {
+  background: var(--ia-text);
+  border-radius: 2px 2px 0 0;
+  bottom: 0;
+  content: '';
+  height: 2px;
+  left: 18px;
+  position: absolute;
+  right: 18px;
+}
+
+.os-tab__icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.os-tab__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ia-footer {
+  margin-top: 48px;
+  text-align: center;
+  color: var(--ia-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.ia-footer p {
+  margin: 2px 0;
+}
+
+@media (max-width: 520px) {
+  .ia-container {
+    padding: 36px 14px 56px;
+  }
+
+  .download-shell {
+    border-radius: 8px;
+  }
+
+  .os-tabs {
+    border-radius: 8px;
+  }
+
+  .os-tab {
+    flex-direction: column;
+    gap: 4px;
+    min-height: 60px;
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+}

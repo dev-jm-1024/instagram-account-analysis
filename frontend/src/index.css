@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --animate-spin-slow: spin 12s linear infinite;
+  --animate-fade-in: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  /* Instagram-flavored flat palette (light) */
+  --color-ig-bg: #fafafa;
+  --color-ig-surface: #ffffff;
+  --color-ig-border: #dbdbdb;
+  --color-ig-field: #efefef;
+  --color-ig-text: #262626;
+  --color-ig-muted: #8e8e8e;
+
+  /* Instagram dark palette */
+  --color-ig-bg-dark: #000000;
+  --color-ig-surface-dark: #000000;
+  --color-ig-border-dark: #262626;
+  --color-ig-field-dark: #1a1a1a;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Clean Custom Scrollbars for the Minimalist Dashboard layout */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.12);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.25);
+}
+
+/* Flat Instagram-style surface (replaces the former liquid-glass panel) */
+.glass-panel {
+  background: var(--color-ig-surface);
+  border: 1px solid var(--color-ig-border);
+  box-shadow: none;
+}
+.dark .glass-panel {
+  background: var(--color-ig-surface-dark);
+  border-color: var(--color-ig-border-dark);
+}
+
+/* Instagram brand gradient (logo, active accents, CTAs) */
+.ig-gradient {
+  background-image: linear-gradient(
+    45deg,
+    #feda75 0%,
+    #fa7e1e 25%,
+    #d62976 50%,
+    #962fbf 75%,
+    #4f5bd5 100%
+  );
+}
+
+/* Custom Heatmap responsive scaling helper */
+.grid-cols-24 {
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+}

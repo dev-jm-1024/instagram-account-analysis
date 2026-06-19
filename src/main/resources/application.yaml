@@ -1,0 +1,36 @@
+server:
+  port: 8374                       # 포터블 로컬 앱 고정 포트
+  tomcat:
+    max-swallow-size: -1           # 대용량 업로드 본문 처리 허용
+
+spring:
+  config:
+    import: "classpath:instagram-schema-mapping.yaml"   # 파일→도메인 분류 매핑(코드 외부화)
+  application:
+    name: instagram-analyze
+  jackson:
+    default-property-inclusion: non_null   # 모든 응답의 null 필드 키 제거(프론트 계약: 키 부재 == null)
+  servlet:
+    multipart:
+      max-file-size: -1                    # ZIP 수 GB 허용(단일 사용자 localhost). 디스크 스트리밍이라 힙 평탄
+      max-request-size: -1
+      file-size-threshold: 2KB             # 이 이상은 임시파일로(메모리 버퍼링 방지)
+
+logging:
+  level:
+    com.instagram.analyze.infrastructure.parse: INFO
+
+instagram:
+  data:
+    root: ./data                   # export 데이터 루트(jar 옆). dev override: ../data
+    auto-import-single: true       # 후보 1개면 자동 임포트 가능(프론트 힌트)
+    max-scan-depth: 4              # 후보 디렉토리에서 export marker 탐색 최대 깊이
+    keep: 5                        # data/ 유지 export 최대 개수(초과 시 오래된 것 삭제). 0 이하=무제한
+  explorer:
+    max-depth: 10
+    max-file-bytes: 10485760       # 10MB
+  message:
+    top-n: 10
+  web:
+    cors:
+      allowed-origins: []          # 비어있으면 CORS 비활성(기본). dev 시 origin 추가

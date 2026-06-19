@@ -1,0 +1,56 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+
+### 설정파일
+
+*.yaml
+*.properties
+# 단, 앱 구동에 필요한 리소스 설정과 Gradle 래퍼는 커밋한다(시크릿 없음)
+!src/main/resources/*.yaml
+!gradle/wrapper/gradle-wrapper.properties
+
+### 배포 산출물 (assembleDeploy 가 생성) ###
+/deploy/
+/deploy-*/
+
+### 개인 데이터 (Instagram export) — 절대 커밋 금지 ###
+/data/
+
+### macOS ###
+.DS_Store

@@ -1,0 +1,70 @@
+# Instagram export 파일 → 도메인 분류 매핑 (domain.md 1.1 / 부록 B).
+#
+# 스캐너가 이 규칙으로 파일을 도메인에 배정한다. 스키마(파일명/경로)가 바뀌면
+# 코드 재컴파일 없이 이 파일만 고치면 된다.
+#
+# 평가 규칙:
+#   1) exclude-path-contains 에 걸리면 전용 규칙(rules)을 건너뜀 (오분류 방지) → catch-all 로 감
+#   2) rules 를 위에서부터 평가 — 한 규칙 안의 조건은 OR, 첫 매칭 도메인으로 분류
+#   3) 어디에도 안 걸리면 MISC_LOG (catch-all) — 전용 메뉴 없는 파일도 '각종 로그'에 범용 표로 노출
+# 매칭은 대소문자 무시. name=파일명, path=루트 기준 전체 경로(/ 구분).
+instagram:
+  scan:
+    exclude-path-contains:
+      - "/threads/"            # Threads 앱 데이터 — 메뉴 파일명과 겹쳐 오분류 방지
+      - "/ads_and_topics/"     # 광고/추천 추적(posts_viewed 등) — posts_ 접두가 ACTIVITY 와 겹쳐 오분류 방지
+    rules:
+      # 검색이 먼저 claim (logged_information 보다 우선 — 이중 집계 방지)
+      - domain: SEARCH
+        name-contains-all: ["search", "history"]
+        name-starts-with: ["account_searches"]
+        name-ends-with: ["_searches.json"]
+        path-contains: ["/recent_searches/"]
+      - domain: MISC_LOG
+        path-contains: ["/logged_information/"]
+      - domain: FOLLOW
+        name-equals:
+          - "following.json"
+          - "recently_unfollowed_profiles.json"
+          - "pending_follow_requests.json"
+          - "close_friends.json"
+          - "restricted_profiles.json"
+        name-starts-with: ["followers_"]
+      - domain: MESSAGE
+        name-starts-with: ["message_"]
+      - domain: ACTIVITY
+        name-equals:
+          - "posts.json"        # 피드 게시물 본파일(label_values 리스트형) — posts_ 접두에 안 걸려 별도 등록
+          - "stories.json"
+          - "reels.json"
+          - "liked_posts.json"
+          - "liked_comments.json"
+          - "reels_comments.json"
+          - "saved_posts.json"
+        name-starts-with: ["posts_", "post_comments_"]
+      - domain: LOGIN
+        name-starts-with: ["login_activity", "logout_activity"]
+      - domain: IMPORT          # 본인 식별용(메뉴 아님)
+        name-equals: ["personal_information.json"]
+
+  # 팔로우 파일 → 루트 키·관계 타입 (FollowParser). 루트 키가 바뀌면 여기만 수정.
+  follow:
+    files:
+      - name-prefix: "followers_"
+        root-key: "relationships_followers"
+        relation: FOLLOWER
+      - name: "following.json"
+        root-key: "relationships_following"
+        relation: FOLLOWING
+      - name: "recently_unfollowed_profiles.json"
+        root-key: "relationships_unfollowed_users"
+        relation: RECENTLY_UNFOLLOWED
+      - name: "pending_follow_requests.json"
+        root-key: "relationships_follow_requests_sent"
+        relation: PENDING_REQUEST
+      - name: "close_friends.json"
+        root-key: "relationships_close_friends"
+        relation: CLOSE_FRIEND
+      - name: "restricted_profiles.json"
+        root-key: "relationships_restricted_users"
+        relation: RESTRICTED

@@ -1,0 +1,19 @@
+#!/bin/sh
+# macOS .app 실행 파일. 더블클릭 시 Terminal 없이 앱이 뜨고 브라우저가 자동으로 열린다.
+# 종료: 메뉴바 트레이 아이콘 → 종료.
+# 경로: deploy/Instagram Analyzer.app/Contents/MacOS/run → 상위 3단계가 deploy/
+DEPLOY="$(cd "$(dirname "$0")/../../.." && pwd)"
+cd "$DEPLOY" || exit 1
+
+if [ -x "./runtime/bin/java" ]; then
+  JAVA="./runtime/bin/java"
+else
+  JAVA="java"
+fi
+
+exec "$JAVA" \
+  -Dspring.profiles.active=desktop \
+  -Djava.awt.headless=false \
+  -Dinstagram.data.root="$DEPLOY/data" \
+  -Dfile.encoding=UTF-8 \
+  -jar "$DEPLOY/instagram-analyze.jar"
